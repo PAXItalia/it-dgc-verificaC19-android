@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
-    <a href="/../../commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/ministero-salute/dgca-verifier-app-android?style=flat"></a>
-    <a href="/../../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/ministero-salute/dgca-verifier-app-android?style=flat"></a>
+    <a href="/../../commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/PAXItalia/it-dgc-verificaC19-android?style=flat"></a>
+    <a href="/../../issues" title="Open Issues"><img src="https://img.shields.io/github/issues/PAXItalia/it-dgc-verificaC19-android?style=flat"></a>
     <a href="./LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=flat"></a>
 </p>
 
