@@ -1,5 +1,5 @@
 <h1 align="center">
-    EU Digital COVID Certificate Verifier App - Android
+    PAX Italia - Italian Green Pass verification app - Android
 </h1>
 
 <p align="center">
@@ -21,17 +21,19 @@
 
 ## About
 
-This repository contains the source code of *VerificaC19*, the Italian customization of the EU Digital COVID Certificate Verifier App for the Android Operating System. The repository is forked from the [official EU Digital COVID Certificate Verifier App - Android](https://github.com/eu-digital-green-certificates/dgca-verifier-app-android)
+This repository contains the source code of *VerificaC19*, the Italian customization of the EU Digital COVID Certificate Verifier App for the Android Operating System. The repository is forked from the [official EU Digital COVID Certificate Verifier App - Android](https://github.com/ministero-salute/it-dgc-verificaC19-android)
 
 The DGC Verifier Apps are responsible for scanning and verifying DCCs using public keys from national backend servers. Offline verification is supported, if the latest public keys are present in the app's key store. Consequently, once up-to-date keys have been downloaded, the verification works without active internet connection.
 The Italian version adds some medical rules to the validation of the DCCs, defined by rules downloaded from national backend servers.
+
+PAX Italia version allows the application to run on devices with Android 6.0 and higher.
 
 ## Development
 
 ### Prerequisites
 
 - For development, the latest version of Android Studio is required. The latest version can be downloaded from [here](https://developer.android.com/studio/).
-- Android SDK version 26+
+- Android SDK version 23+
 
 ### Build
 
@@ -41,7 +43,7 @@ In order to successfully build and run the project, you must have also downloade
 
 ```
 android-app
-|___dgca-verifier-app-android
+|___it-dgc-verificaC19-android
 |___dgca-app-core-android
 ```
 
