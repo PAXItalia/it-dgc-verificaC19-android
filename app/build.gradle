@@ -93,7 +93,7 @@ android {
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
         versionCode 571
-        versionName "1.1.0"
+        versionName "1.1.0-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
@@ -115,6 +115,8 @@ android {
     }
 
     compileOptions {
+// desugar java time library
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
     }
@@ -145,6 +147,8 @@ android {
 
 dependencies {
     implementation project(':decoder')
+
+    coreLibraryDesugaring Deps.desugar_jdk_libs
 
     implementation Deps.kotlin_stdlib
     implementation Deps.androidx_core

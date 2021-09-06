@@ -45,7 +45,7 @@ object Versions {
     const val gson_converter = "2.6.0"
 
     // QR
-    const val zxing = "4.2.0"
+    const val zxing = "3.6.0"
     const val guave_conflict_resolver_version = "9999.0-empty-to-avoid-conflict-with-guava"
 
     // Decoder
