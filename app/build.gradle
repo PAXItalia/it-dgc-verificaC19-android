@@ -89,7 +89,7 @@ android {
     compileSdkVersion Config.compileSdk
 
     defaultConfig {
-        applicationId "it.ministerodellasalute.verificaC19"
+        applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
         versionCode 571
@@ -111,6 +111,10 @@ android {
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            applicationVariants.all { variant ->
+                renameAPK(variant, defaultConfig)
+            }
         }
     }
 
@@ -142,6 +146,13 @@ android {
             def lintTask = tasks["lint${variant.name.capitalize()}"]
             output.assemble.dependsOn lintTask
         }
+    }
+}
+
+def renameAPK(variant, defaultConfig) {
+    variant.outputs.all { output ->
+        def fileName = "VerificaC19-" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk"
+        output.outputFileName = fileName
     }
 }
 
