@@ -1,4 +1,5 @@
 include ':app'
+include ':dgc-sdk'
 include ':decoder'
 rootProject.name = "PAX Italia - Verifica C19"
 project(':decoder').projectDir = new File("../dgca-app-core-android/decoder")
