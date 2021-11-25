@@ -23,12 +23,14 @@
 package it.ministerodellasalute.verificaC19
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.*
 import dagger.hilt.android.HiltAndroidApp
-import it.ministerodellasalute.verificaC19.worker.LoadKeysWorker
+import it.ministerodellasalute.verificaC19sdk.worker.LoadKeysWorker
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 
 @HiltAndroidApp
 class VerificaApplication : Application(), Configuration.Provider {
@@ -47,7 +49,7 @@ class VerificaApplication : Application(), Configuration.Provider {
         setWorkManager()
     }
 
-    private fun setWorkManager(){
+    fun setWorkManager(){
         val uploadWorkRequest: WorkRequest =
             PeriodicWorkRequestBuilder<LoadKeysWorker>(1, TimeUnit.DAYS)
                 .setConstraints(Constraints.Builder()
@@ -62,4 +64,5 @@ class VerificaApplication : Application(), Configuration.Provider {
                 uploadWorkRequest as PeriodicWorkRequest
             )
     }
+
 }
