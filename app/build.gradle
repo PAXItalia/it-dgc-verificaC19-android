@@ -92,23 +92,20 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 571
-        versionName "1.1.0-PAX"
+        versionCode 584
+        versionName "1.1.7-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://testaka4.sogei.it/v1/dgc/\""
-            buildConfigField "String", "SERVER_HOST", "\"testaka4.sogei.it\""
-            buildConfigField "String", "CERTIFICATE_SHA", "\"sha256/R0d+cI8vTcJ3sCbpfQCH0OmdBbulPH3deYhngzOqJVA=\""
+            minifyEnabled false
+            debuggable true
         }
 
         release {
-            buildConfigField "String", "BASE_URL", "\"https://get.dgc.gov.it/v1/dgc/\""
-            buildConfigField "String", "SERVER_HOST", "\"get.dgc.gov.it\""
-            buildConfigField "String", "CERTIFICATE_SHA", "\"sha256/7cZJIDPacG8FS3pq6Mvxg+7yBDM/VYc2alOcbVe/e74=\""
-
+            //signingConfig signingConfigs.debug
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -157,7 +154,9 @@ def renameAPK(variant, defaultConfig) {
 }
 
 dependencies {
+    implementation project(':dgc-sdk')
     implementation project(':decoder')
+    coreLibraryDesugaring Deps.desugar_jdk_libs
 
     coreLibraryDesugaring Deps.desugar_jdk_libs
 
