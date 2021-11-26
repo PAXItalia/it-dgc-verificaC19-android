@@ -44,6 +44,7 @@ In order to successfully build and run the project, you must have also downloade
 ```
 android-app
 |___paxit-dgc-verificaC19-android
+|___it-dgc-verificac19-sdk-android
 |___dgca-app-core-android
 ```
 
