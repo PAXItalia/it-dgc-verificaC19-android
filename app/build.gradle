@@ -92,8 +92,8 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 584
-        versionName "1.1.6-PAX"
+        versionCode 585
+        versionName "1.1.7-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
@@ -157,8 +157,6 @@ dependencies {
     implementation project(':decoder')
     coreLibraryDesugaring Deps.desugar_jdk_libs
 
-    coreLibraryDesugaring Deps.desugar_jdk_libs
-
     implementation Deps.kotlin_stdlib
     implementation Deps.androidx_core
     implementation Deps.androidx_appcompat
@@ -170,6 +168,7 @@ dependencies {
     implementation Deps.androidx_worker_ktx
     implementation Deps.kotlinx_coroutines
     implementation Deps.zxing
+    implementation Deps.zxing_core
     implementation Deps.guava_conflict_resolver
 
     implementation Deps.hilt
@@ -185,6 +184,7 @@ dependencies {
     implementation Deps.retrofit2
     implementation Deps.log_interceptor
     implementation Deps.gson_converter
+    implementation Deps.jackson_datetype
 
     testImplementation Deps.test_junit
     testImplementation "io.mockk:mockk:1.11.0"
