@@ -92,8 +92,8 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 585
-        versionName "1.1.7-PAX"
+        versionCode 611
+        versionName "1.1.8-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
@@ -155,6 +155,7 @@ def renameAPK(variant, defaultConfig) {
 dependencies {
     implementation project(':dgc-sdk')
     implementation project(':decoder')
+    implementation 'com.google.android.material:material:1.4.0'
     coreLibraryDesugaring Deps.desugar_jdk_libs
 
     implementation Deps.kotlin_stdlib
