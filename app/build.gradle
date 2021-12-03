@@ -92,7 +92,7 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 584
+        versionCode 585
         versionName "1.1.7-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
@@ -116,7 +116,6 @@ android {
     }
 
     compileOptions {
-	// desugar java time library
         coreLibraryDesugaringEnabled = true
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
