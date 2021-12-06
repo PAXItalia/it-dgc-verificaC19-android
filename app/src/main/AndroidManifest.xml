@@ -38,8 +38,8 @@
         <activity
             android:name=".ui.SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden"

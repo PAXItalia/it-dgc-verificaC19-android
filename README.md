@@ -47,9 +47,9 @@ All projects should be at the same folder level as eachother which would look so
 
 ```
 android-app
-|___paxit-dgc-verificaC19-android (release/1.1.7)
-|___it-dgc-verificac19-sdk-android (release/1.0.2)
-|___dgca-app-core-android (commit c801d0186a476afbe1913f4dfe57b375ee6a722d)
+|___paxit-dgc-verificaC19-android (release/1.1.8)
+|___it-dgc-verificac19-sdk-android (release/1.0.4)
+|___dgca-app-core-android (commit 0a9ad293088762a1291655749f6d41608891a360)
 ```
 
 #### Android Studio based build
