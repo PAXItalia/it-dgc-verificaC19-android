@@ -524,15 +524,17 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
         val builder = AlertDialog.Builder(this)
         builder.setTitle(getString(R.string.updateTitle))
         builder.setMessage(getString(R.string.updateMessage))
-
+/* AG - 2021/12/23 - do not open allow to search on play store
         builder.setPositiveButton(getString(R.string.updateLabel)) { _, _ ->
             openGooglePlay()
         }
+ */
         val dialog = builder.create()
         dialog.setCancelable(false)
         dialog.show()
     }
 
+/* AG - 2021/12/23 - do not open allow to search on play store
     private fun openGooglePlay() {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
@@ -544,7 +546,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
                 )
             )
         }
-    }
+    }*/
 
     override fun onStart() {
         super.onStart()
