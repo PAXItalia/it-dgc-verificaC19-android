@@ -89,18 +89,18 @@ android {
     compileSdkVersion Config.compileSdk
 
     defaultConfig {
-        applicationId "com.paxitalia.verificaC19"
+        applicationId "it.ministerodellasalute.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 584
-        versionName "1.1.7-PAX"
+        versionCode 629
+        versionName "1.2.1"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
     buildTypes {
         debug {
             minifyEnabled false
-            debuggable true
+            debuggable false
         }
 
         release {
@@ -108,15 +108,10 @@ android {
             debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            applicationVariants.all { variant ->
-                renameAPK(variant, defaultConfig)
-            }
         }
     }
 
     compileOptions {
-// desugar java time library
         coreLibraryDesugaringEnabled = true
         sourceCompatibility Config.javaVersion
         targetCompatibility Config.javaVersion
@@ -146,18 +141,9 @@ android {
     }
 }
 
-def renameAPK(variant, defaultConfig) {
-    variant.outputs.all { output ->
-        def fileName = "VerificaC19-" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk"
-        output.outputFileName = fileName
-    }
-}
-
 dependencies {
     implementation project(':dgc-sdk')
     implementation project(':decoder')
-    coreLibraryDesugaring Deps.desugar_jdk_libs
-
     coreLibraryDesugaring Deps.desugar_jdk_libs
 
     implementation Deps.kotlin_stdlib
