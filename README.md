@@ -47,14 +47,14 @@ All projects should be at the same folder level as eachother which would look so
 
 ```
 android-app
-|___paxit-dgc-verificaC19-android (release/1.8.0)
-|___it-dgc-verificac19-sdk-android (release/1.1.0)
+|___paxit-dgc-verificaC19-android (release/1.2.1)
+|___it-dgc-verificac19-sdk-android (release/1.1.1)
 |___dgca-app-core-android (commit c801d0186a476afbe1913f4dfe57b375ee6a722d)
 ```
 
 #### Android Studio based build
 
-Modifiy `app\build.gradle` file, changing `BASE_URL`, `SERVER_HOST` and `CERTIFICATE_SHA` `debug` config values with `release` config values. [Here](https://github.com/ministero-salute/it-dgc-documentation/blob/master/openapi.yaml) you can find more info on app's endpoints.
+Modify `app\build.gradle` file, changing `BASE_URL`, `SERVER_HOST` and `CERTIFICATE_SHA` `debug` config values with `release` config values. [Here](https://github.com/ministero-salute/it-dgc-documentation/blob/master/openapi.yaml) you can find more info on app's endpoints.
 
 This project uses the Gradle build system. To build this project, use the `gradlew build` command or use `"Run"` in Android Studio.
 
