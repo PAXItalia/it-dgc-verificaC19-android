@@ -42,15 +42,16 @@ Whether you cloned or downloaded the 'zipped' sources you will either find the s
 In order to successfully build and run the project, you must have also downloaded:
 - the corresponding core repository from [here](https://github.com/eu-digital-green-certificates/dgca-app-core-android/)
 - the DGC-SDK from [HERE](https://github.com/ministero-salute/it-dgc-verificac19-sdk-android/)
+- the certlogic from [HERE] (https://github.com/eu-digital-green-certificates/dgc-certlogic-android/) 
 
 All projects should be at the same folder level as eachother which would look something like:
 
 ```
 android-app
-|___paxit-dgc-verificaC19-android
-|___it-dgc-verificac19-sdk-android
-|___dgca-app-core-android
-|___dgc-certlogic-android
+|___paxit-dgc-verificaC19-android release 1.2.2 (https://github.com/PAXItalia/paxit-dgc-verificaC19-android/tree/release/1.2.2)
+|___it-dgc-verificac19-sdk-android release 1.1.2 (https://github.com/ministero-salute/it-dgc-verificac19-sdk-android/tree/1.1.2)
+|___dgca-app-core-android commit #095b532 (https://github.com/eu-digital-green-certificates/dgca-app-core-android/tree/095b53264b95cbc39ec4a2689cb6774287fdf305)
+|___dgc-certlogic-android commit #1c72c69 (https://github.com/eu-digital-green-certificates/dgc-certlogic-android/tree/1c72c69ab6a8b99c41a5d0defb8ab3791a2a57af)
 ```
 
 #### Android Studio based build
