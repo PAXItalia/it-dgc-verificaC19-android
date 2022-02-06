@@ -92,8 +92,8 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-        versionCode 638
-        versionName "1.2.2-PAX"
+        versionCode 648
+        versionName "1.2.4-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
     }
 
