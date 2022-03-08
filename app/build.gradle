@@ -92,13 +92,8 @@ android {
         applicationId "com.paxitalia.verificaC19"
         minSdkVersion Config.minSdk
         targetSdkVersion Config.targetSdk
-<<<<<<< HEAD
-        versionCode 648
-        versionName "1.2.4-PAX"
-=======
         versionCode 655
-        versionName "1.2.6"
->>>>>>> upstream/release/1.2.7
+        versionName "1.2.6-PAX"
         testInstrumentationRunner Config.androidTestInstrumentation
 
         buildConfigField "String", "BASE_LINK_URL", "\"https://www.dgc.gov.it\""

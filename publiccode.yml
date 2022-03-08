@@ -2,15 +2,9 @@ publiccodeYmlVersion: "0.2"
 applicationSuite: it-dgc
 url: "https://github.com/ministero-salute/it-dgc-verificaC19-android"
 name: VerificaC19
-<<<<<<< HEAD
-releaseDate: '2022-02-06'
-softwareType: standalone/mobile
-softwareVersion: 1.2.4-PAX
-=======
 releaseDate: '2022-02-23'
 softwareType: standalone/mobile
 softwareVersion: 1.2.6
->>>>>>> upstream/release/1.2.7
 developmentStatus: stable
 logo: logo.png
 platforms:
