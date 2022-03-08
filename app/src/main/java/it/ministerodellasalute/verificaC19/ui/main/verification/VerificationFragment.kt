@@ -27,11 +27,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,18 +40,14 @@ import it.ministerodellasalute.verificaC19.R
 import it.ministerodellasalute.verificaC19.databinding.FragmentVerificationBinding
 import it.ministerodellasalute.verificaC19.ui.base.isDebug
 import it.ministerodellasalute.verificaC19.ui.compounds.QuestionCompound
+import it.ministerodellasalute.verificaC19.ui.main.ExternalLink
 import it.ministerodellasalute.verificaC19sdk.VerificaDownloadInProgressException
 import it.ministerodellasalute.verificaC19sdk.VerificaMinSDKVersionException
 import it.ministerodellasalute.verificaC19sdk.VerificaMinVersionException
-import it.ministerodellasalute.verificaC19sdk.data.local.ScanMode
-import it.ministerodellasalute.verificaC19sdk.model.CertificateStatus
-import it.ministerodellasalute.verificaC19sdk.model.CertificateViewBean
-import it.ministerodellasalute.verificaC19sdk.model.PersonModel
-import it.ministerodellasalute.verificaC19sdk.model.VerificationViewModel
+import it.ministerodellasalute.verificaC19sdk.model.*
 import it.ministerodellasalute.verificaC19sdk.util.FORMATTED_VALIDATION_DATE
 import it.ministerodellasalute.verificaC19sdk.util.TimeUtility.formatDateOfBirth
 import it.ministerodellasalute.verificaC19sdk.util.TimeUtility.parseTo
-import java.util.*
 
 @ExperimentalUnsignedTypes
 @AndroidEntryPoint
@@ -80,6 +77,8 @@ class VerificationFragment : Fragment(), View.OnClickListener {
                 setPersonData(it.person, it.dateOfBirth)
                 setupCertStatusView(it)
                 setupTimeStamp(it)
+                binding.closeButton.visibility = View.VISIBLE
+                binding.validationDate.visibility = View.VISIBLE
                 if (
                     viewModel.getTotemMode() &&
                     (certificate.certificateStatus == CertificateStatus.VALID)
@@ -93,7 +92,6 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         viewModel.inProgress.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = it
         }
-
         try {
             viewModel.init(args.qrCodeText, true)
         } catch (e: VerificaMinSDKVersionException) {
@@ -123,19 +121,14 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
     private fun setScanModeText() {
         val chosenScanMode = when (viewModel.getScanMode()) {
-            ScanMode.STANDARD -> getString(R.string.scan_mode_3G_header).substringAfter(' ')
-                .toUpperCase(Locale.ROOT)
-            ScanMode.STRENGTHENED -> getString(R.string.scan_mode_2G_header).substringAfter(' ')
-                .toUpperCase(Locale.ROOT)
-            ScanMode.BOOSTER -> getString(R.string.scan_mode_booster_header).substringAfter(' ')
-                .toUpperCase(Locale.ROOT)
-            ScanMode.SCHOOL -> getString(R.string.scan_mode_school_header).substringAfter(' ')
-                .toUpperCase(Locale.ROOT)
-            else -> ""
+            ScanMode.STANDARD -> getString(R.string.scan_mode_3G_header)
+            ScanMode.STRENGTHENED -> getString(R.string.scan_mode_2G_header)
+            ScanMode.BOOSTER -> getString(R.string.scan_mode_booster_header)
+            ScanMode.SCHOOL -> getString(R.string.scan_mode_school_header)
+            ScanMode.WORK -> getString(R.string.scan_mode_work_header)
+            ScanMode.ENTRY_ITALY -> getString(R.string.scan_mode_entry_italy_header)
         }
-        val scanModeLabel = getString(R.string.label_scan_mode_ver)
-        binding.scanModeText.text =
-            getString(R.string.label_verification_scan_mode, scanModeLabel, chosenScanMode)
+        binding.scanModeText.text = chosenScanMode
     }
 
     private fun setupTimeStamp(cert: CertificateViewBean) {
@@ -150,14 +143,15 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     private fun setLinkViews(certStatus: CertificateStatus) {
         binding.questionContainer.removeAllViews()
         val questionMap: Map<String, String> = when (certStatus) {
-            CertificateStatus.VALID -> mapOf(getString(R.string.label_what_can_be_done) to "https://www.dgc.gov.it/web/faq.html#verifica19")
-            CertificateStatus.NOT_VALID_YET -> mapOf(getString(R.string.label_when_qr_valid) to "https://www.dgc.gov.it/web/faq.html#verifica19")
-            CertificateStatus.NOT_VALID, CertificateStatus.TEST_NEEDED, CertificateStatus.REVOKED -> mapOf(
-                getString(R.string.label_why_qr_not_valid) to "https://www.dgc.gov.it/web/faq.html#verifica19"
+            CertificateStatus.VALID -> mapOf(getString(R.string.label_what_can_be_done) to ExternalLink.VERIFICATION_FAQ_URL)
+            CertificateStatus.NOT_VALID_YET -> mapOf(getString(R.string.label_when_qr_valid) to ExternalLink.VERIFICATION_FAQ_URL)
+            CertificateStatus.NOT_VALID, CertificateStatus.EXPIRED, CertificateStatus.REVOKED -> mapOf(
+                getString(R.string.label_why_qr_not_valid) to ExternalLink.VERIFICATION_FAQ_URL
             )
-            CertificateStatus.NOT_EU_DCC -> mapOf(getString(R.string.label_which_qr_scan) to "https://www.dgc.gov.it/web/faq.html#verifica19")
+            CertificateStatus.TEST_NEEDED -> mapOf(getString(R.string.label_why_is_test_needed) to ExternalLink.VERIFICATION_FAQ_URL)
+            CertificateStatus.NOT_EU_DCC -> mapOf(getString(R.string.label_which_qr_scan) to ExternalLink.VERIFICATION_FAQ_URL)
         }
-        questionMap.map {
+        questionMap.forEach {
             val compound = QuestionCompound(context)
             compound.setupWithLabels(it.key, it.value)
             binding.questionContainer.addView(compound)
@@ -167,7 +161,13 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
     private fun setValidationSubTextVisibility(certStatus: CertificateStatus) {
         binding.subtitleText.visibility = when (certStatus) {
-            CertificateStatus.NOT_EU_DCC -> View.GONE
+            CertificateStatus.NOT_EU_DCC -> {
+                binding.questionContainer.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                    bottomToTop = binding.validationDate.id
+                    bottomMargin = 64
+                }
+                View.GONE
+            }
             else -> View.VISIBLE
         }
     }
@@ -176,7 +176,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
         binding.subtitleText.text =
             when (certStatus) {
                 CertificateStatus.VALID, CertificateStatus.TEST_NEEDED -> getString(R.string.subtitle_text)
-                CertificateStatus.NOT_VALID, CertificateStatus.NOT_VALID_YET -> getString(R.string.subtitle_text_notvalid)
+                CertificateStatus.NOT_VALID, CertificateStatus.EXPIRED, CertificateStatus.NOT_VALID_YET -> getString(R.string.subtitle_text_notvalid)
                 else -> getString(R.string.subtitle_text_technicalError)
             }
     }
@@ -189,6 +189,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
                 R.string.certificateNonValid
             )
             CertificateStatus.NOT_VALID -> getString(R.string.certificateNonValid)
+            CertificateStatus.EXPIRED -> getString(R.string.certificateExpired)
             CertificateStatus.TEST_NEEDED -> getString(R.string.certificateValidTestNeeded)
             CertificateStatus.NOT_VALID_YET -> getString(R.string.certificateNonValidYet)
         }
@@ -209,7 +210,7 @@ class VerificationFragment : Fragment(), View.OnClickListener {
 
     private fun setPersonDetailsVisibility(certStatus: CertificateStatus) {
         binding.containerPersonDetails.visibility = when (certStatus) {
-            CertificateStatus.VALID, CertificateStatus.REVOKED, CertificateStatus.TEST_NEEDED, CertificateStatus.NOT_VALID, CertificateStatus.NOT_VALID_YET -> View.VISIBLE
+            CertificateStatus.VALID, CertificateStatus.REVOKED, CertificateStatus.TEST_NEEDED, CertificateStatus.NOT_VALID, CertificateStatus.EXPIRED, CertificateStatus.NOT_VALID_YET -> View.VISIBLE
             else -> View.GONE
         }
     }
@@ -228,7 +229,12 @@ class VerificationFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setPersonData(person: PersonModel?, dateOfBirth: String?) {
-        binding.nameStandardisedText.text = person?.familyName.plus(" ").plus(person?.givenName)
+        if (person?.familyName.isNullOrEmpty()) {
+            binding.nameStandardisedText.text =
+                person?.standardisedFamilyName.plus(" ").plus(person?.standardisedGivenName).plus(" ").plus(person?.givenName)
+        } else {
+            binding.nameStandardisedText.text = person?.familyName.plus(" ").plus(person?.givenName)
+        }
         binding.birthdateText.text = dateOfBirth?.formatDateOfBirth().orEmpty()
     }
 
