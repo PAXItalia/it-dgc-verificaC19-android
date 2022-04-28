@@ -2,9 +2,9 @@ publiccodeYmlVersion: "0.2"
 applicationSuite: it-dgc
 url: "https://github.com/PAXItalia/paxit-dgc-verificaC19-android"
 name: VerificaC19 (PAX Android)
-releaseDate: '2022-04-07'
+releaseDate: '2022-02-06'
 softwareType: standalone/mobile
-softwareVersion: 1.3.1
+softwareVersion: 1.2.4-PAX
 developmentStatus: stable
 logo: logo.png
 platforms:
