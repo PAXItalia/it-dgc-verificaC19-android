@@ -28,6 +28,7 @@ import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Html
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -79,9 +80,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                openQrCodeReader()
-            }
+            if (isGranted) openQrCodeReader() else noPermissionsGrantedCamera()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,7 +97,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     private fun disableUnusedScanModes() {
-        if (viewModel.getScanMode() == ScanMode.WORK || viewModel.getScanMode() == ScanMode.SCHOOL) {
+        if (viewModel.getScanMode() == ScanMode.WORK || viewModel.getScanMode() == ScanMode.SCHOOL || viewModel.getScanMode() == ScanMode.ENTRY_ITALY) {
             viewModel.setScanModeFlag(false)
             shared.edit().remove("scanMode").commit()
         }
@@ -260,7 +259,6 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
                     ScanMode.STANDARD -> getString(R.string.scan_mode_3G_header)
                     ScanMode.STRENGTHENED -> getString(R.string.scan_mode_2G_header)
                     ScanMode.BOOSTER -> getString(R.string.scan_mode_booster_header)
-                    ScanMode.ENTRY_ITALY -> getString(R.string.scan_mode_entry_italy_header)
                     else -> getString(R.string.scan_mode_3G_header)
                 }
             binding.scanModeButton.text = chosenScanMode
@@ -407,7 +405,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
         startActivity(intent)
     }
 
-    private fun openSettings() {
+    private fun openSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
@@ -440,7 +438,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
                 }
                 checkCameraPermission()
             }
-            R.id.settings -> openSettings()
+            R.id.settings -> openSettingsActivity()
             R.id.scan_mode_button -> {
                 viewModel.getRuleSet()?.run {
                     ScanModeDialogFragment(viewModel.getRuleSet()!!).show(supportFragmentManager, "SCAN_MODE_DIALOG_FRAGMENT")
@@ -532,12 +530,48 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         } catch (e: ActivityNotFoundException) {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+            try {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
                 )
-            )
+            } catch (e: ActivityNotFoundException) {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(getString(R.string.google_play_intent_error_title))
+                builder.setMessage(getString(R.string.google_play_intent_error_message))
+
+                builder.setPositiveButton(getString(R.string.ok)) { _, _ ->
+                }
+                val dialog = builder.create()
+                dialog.setCancelable(false)
+                dialog.show()
+            }
+        }
+    }
+
+    private fun noPermissionsGrantedCamera() {
+        val builder = AlertDialog.Builder(this)
+        val dialog: AlertDialog?
+        builder.setTitle(
+            getString(R.string.no_permissions_granted_camera_title)
+        )
+        builder.setMessage(getString(R.string.no_permissions_granted_camera_message))
+        builder.setPositiveButton(getString(R.string.open_settings)) { _, _ -> openSettings() }
+        builder.setNegativeButton(getString(R.string.not_now)) { _, _ -> }
+        dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun openSettings() {
+        try {
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", packageName, null)
+            intent.data = uri
+            startActivity(intent)
+        } catch (e: Exception) {
+            Log.i("openSettings", e.toString())
         }
     }*/
 
