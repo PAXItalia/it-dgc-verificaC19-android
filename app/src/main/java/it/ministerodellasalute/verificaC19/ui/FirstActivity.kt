@@ -550,7 +550,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
             }
         }
     }
-
+*/
     private fun noPermissionsGrantedCamera() {
         val builder = AlertDialog.Builder(this)
         val dialog: AlertDialog?
@@ -573,7 +573,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener,
         } catch (e: Exception) {
             Log.i("openSettings", e.toString())
         }
-    }*/
+    }
 
     override fun onStart() {
         super.onStart()
