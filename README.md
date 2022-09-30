@@ -37,12 +37,10 @@ PAX Italia version allows the application to run on devices with Android 6.0 and
 
 ### Build
 
-Whether you cloned or downloaded the 'zipped' sources you will either find the sources in the chosen checkout-directory or get a zip file with the source code, which you can expand to a folder of your choice.
-
-In order to successfully build and run the project, you must have also downloaded:
-- the corresponding core repository from [here](https://github.com/eu-digital-green-certificates/dgca-app-core-android/)
-- the DGC-SDK from [HERE](https://github.com/ministero-salute/it-dgc-verificac19-sdk-android/)
-- the certlogic from [HERE] (https://github.com/eu-digital-green-certificates/dgc-certlogic-android/) 
+In order to successfully build and run the project, you must have downloaded:
+- the application (release 1.3.2-PAX) from [HERE](https://github.com/PAXItalia/paxit-dgc-verificaC19-android/tree/release/1.3.2-PAX)
+- the corresponding core repository (release 1.3.0) from [HERE](https://github.com/eu-digital-green-certificates/dgca-app-core-android/tree/1.3.0)
+- the DGC-SDK (release 1.1.10) from [HERE](https://github.com/ministero-salute/it-dgc-verificac19-sdk-android/tree/1.1.10)
 
 All projects should be at the same folder level as eachother which would look something like:
 
@@ -51,7 +49,6 @@ android-app
 |___paxit-dgc-verificaC19-android
 |___dgca-app-core-android
 |___it-dgc-verificac19-sdk-android
-|___dgc-certlogic-android
 ```
 
 #### Android Studio based build
